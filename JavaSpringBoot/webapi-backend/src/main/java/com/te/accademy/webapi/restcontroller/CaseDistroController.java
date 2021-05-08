@@ -1,11 +1,9 @@
 package com.te.accademy.webapi.restcontroller;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.te.accademy.webapi.datamodel.CaseDetail;
 import com.te.accademy.webapi.datamodel.CaseDistribution;
-import com.te.accademy.webapi.datamodel.view.CaseDetail;
-import com.te.accademy.webapi.datamodel.view.CaseSummary;
-import com.te.accademy.webapi.repo.CaseDistributionRepository;
-import com.te.accademy.webapi.repo.CaseDistributionRepository.Country;
-
-import io.swagger.annotations.ApiOperation;
+import com.te.accademy.webapi.datamodel.CaseSummary;
+import com.te.accademy.webapi.datamodel.Country;
 
 @RestController
 public class CaseDistroController {
@@ -36,78 +31,54 @@ public class CaseDistroController {
 		}
 	}
 
-	@Autowired
-	private CaseDistributionRepository caseDistributionRepository;
-
-	@ApiOperation(value = "List all countries")
 	@GetMapping("/countries")
 	public List<Country> getAll() {
-		return caseDistributionRepository.findDistinctCountries();
+		Country c=new Country();
+		c.setCode("ITA");
+		c.setContinent("Europe");
+		c.setCountry("Italy");
+		
+		return Collections.singletonList(c);
 	}
 
-	@ApiOperation(value = "Get CaseDistribution entry")
 	@GetMapping("/case/{case_id}")
 	public CaseDetail getCaseById(@PathVariable Integer case_id) {
-		return caseDistributionRepository.findCaseById(case_id);
+		return null;
 	}
 
-	@ApiOperation(value = "Search CaseDistribution entries")
 	@GetMapping("/case")
 	public List<CaseDetail> getDetail(//
 			@RequestParam(required = false) Date from, //
 			@RequestParam(required = false) Date to, //
 			@RequestParam(required = false) String country) {
 
-		List<CaseDetail> reesult = caseDistributionRepository.findCaseDetails(from, to, country);
-
-		return reesult;
+		return Collections.<CaseDetail>emptyList();
 	}
 
-	@ApiOperation(value = "Insert a new CaseDistribution")
 	@PostMapping("/case")
 	public RestResponse insertCase(@RequestBody CaseDistribution newCaseDistribution) {
-
-		CaseDistribution caseDistribution = new CaseDistribution();
-		BeanUtils.copyProperties(newCaseDistribution, caseDistribution, "id");
-
-		caseDistributionRepository.save(caseDistribution);
 
 		return new RestResponse("Success", "Case created successfully");
 	}
 
-	@ApiOperation(value = "Update a CaseDistribution")
 	@PutMapping("/case")
 	public RestResponse updateCase(@RequestBody CaseDistribution updateCaseDistribution) {
-		Optional<CaseDistribution> caseDistribution = caseDistributionRepository
-				.findById(updateCaseDistribution.getId());
-		if (caseDistribution.isEmpty()) {
-			return new RestResponse("Failed", "Cannot find case with id " + updateCaseDistribution.getId());
-		}
-
-		BeanUtils.copyProperties(updateCaseDistribution, caseDistribution.get(), "id");
 
 		return new RestResponse("Success", "Case updated successfully");
 	}
 
-	@ApiOperation(value = "Delete a CaseDistribution")
 	@DeleteMapping("/case")
 	public RestResponse deleteCase(@RequestParam Integer caseId) {
-		Optional<CaseDistribution> caseDistribution = caseDistributionRepository.findById(caseId);
-		if (caseDistribution.isEmpty()) {
-			return new RestResponse("Failed", "Cannot find case with id " + caseId);
-		}
-
-		caseDistributionRepository.delete(caseDistribution.get());
 
 		return new RestResponse("Success", "Case deleted successfully");
 	}
 
-	@ApiOperation(value = "Get CaseDistribution summary")
 	@GetMapping("/case-summary")
 	public List<CaseSummary> getSummary(//
 			@RequestParam(required = false) Date from, //
 			@RequestParam(required = false) Date to, //
 			@RequestParam(required = false) String country) {
-		return caseDistributionRepository.findCaseSummaries(from, to, country);
+
+		return Collections.<CaseSummary>emptyList();
 	}
 }
