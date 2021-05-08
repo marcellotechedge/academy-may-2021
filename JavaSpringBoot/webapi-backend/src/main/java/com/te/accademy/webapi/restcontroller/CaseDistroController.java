@@ -57,13 +57,7 @@ public class CaseDistroController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-	@ApiOperation(value = "List CaseDistribution entries")
-	@GetMapping("/caseAll")
-	public List<CaseDistribution> getAllCases() {
-		return caseDistributionRepository.findAll();
-	}
-
+	
 	@ApiOperation(value = "Search CaseDistribution entries")
 	@GetMapping("/case")
 	public List<CaseDetail> getDetail(//
