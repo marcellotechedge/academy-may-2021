@@ -1,12 +1,10 @@
 package com.te.accademy.webapi.datamodel;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class CaseDistribution implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class CaseDistribution {
 
 	private int id;
 

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,8 +47,8 @@ public class CaseDistroController {
 
 	@ApiOperation(value = "Get CaseDistribution entry")
 	@GetMapping("/case/{case_id}")
-	public CaseDetail getCaseById(@PathVariable Integer case_id) {
-		return null;
+	public ResponseEntity<CaseDetail> getCaseById(@PathVariable Integer case_id) {
+		return ResponseEntity.notFound().build();
 	}
 
 	@ApiOperation(value = "Search CaseDistribution entries")
