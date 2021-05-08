@@ -8,10 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "casedistribution")
 public class CaseDistribution {
 
 	@Id
@@ -19,22 +21,31 @@ public class CaseDistribution {
 	@GeneratedValue
 	private int id;
 
+	@Column(name = "casesweekly")
 	private int casesWeekly;
 
+	@Column(name = "continentexp", length = 45)
 	private String continentExp;
 
+	@Column(name = "countriesandterritories")
 	private String countriesAndTerritories;
 
+	@Column(name = "countryterritorycode")
 	private String countryTerritoryCode;
 
+	@Column(name = "deathsweekly")
 	private int deathsWeekly;
 
+	@Column(name = "geoid")
 	private String geoId;
 
+	@Column(name = "notificationrate", precision = 10, scale = 3)
 	private BigDecimal notificationRate;
 
+	@Column(name = "popdata2019")
 	private BigInteger popData2019;
 
+	@Column(name = "yearweek")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date yearWeek;
 
