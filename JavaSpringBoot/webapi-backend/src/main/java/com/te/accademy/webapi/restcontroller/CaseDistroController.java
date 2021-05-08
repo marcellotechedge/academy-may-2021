@@ -3,7 +3,11 @@ package com.te.accademy.webapi.restcontroller;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import com.te.accademy.webapi.datamodel.CaseDetail;
 import com.te.accademy.webapi.datamodel.CaseDistribution;
 import com.te.accademy.webapi.datamodel.CaseSummary;
 import com.te.accademy.webapi.datamodel.Country;
+import com.te.accademy.webapi.datamodel.repo.CaseDistributionRepository;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +39,9 @@ public class CaseDistroController {
 		}
 	}
 
+	@Autowired
+	private CaseDistributionRepository caseDistributionRepository;
+
 	@ApiOperation(value = "List all countries")
 	@GetMapping("/countries")
 	public List<Country> getAll() {
@@ -48,9 +56,20 @@ public class CaseDistroController {
 	@ApiOperation(value = "Get CaseDistribution entry")
 	@GetMapping("/case/{case_id}")
 	public ResponseEntity<CaseDetail> getCaseById(@PathVariable Integer case_id) {
-		return ResponseEntity.notFound().build();
+		CaseDetail result = caseDistributionRepository.findCaseById(case_id);
+		if (result != null) {
+			return new ResponseEntity<CaseDetail>(result, HttpStatus.OK);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
+	@ApiOperation(value = "List CaseDistribution entries")
+	@GetMapping("/caseAll")
+	public List<CaseDistribution> getAllCases() {
+		return caseDistributionRepository.findAll();
+	}
+	
 	@ApiOperation(value = "Search CaseDistribution entries")
 	@GetMapping("/case")
 	public List<CaseDetail> getDetail(//
@@ -65,12 +84,24 @@ public class CaseDistroController {
 	@PostMapping("/case")
 	public RestResponse insertCase(@RequestBody CaseDistribution newCaseDistribution) {
 
+		CaseDistribution caseDistribution = new CaseDistribution();
+		BeanUtils.copyProperties(newCaseDistribution, caseDistribution, "id");
+
+		caseDistributionRepository.save(caseDistribution);
+
 		return new RestResponse("Success", "Case created successfully");
 	}
 
 	@ApiOperation(value = "Update a CaseDistribution")
 	@PutMapping("/case")
 	public RestResponse updateCase(@RequestBody CaseDistribution updateCaseDistribution) {
+		Optional<CaseDistribution> caseDistribution = caseDistributionRepository
+				.findById(updateCaseDistribution.getId());
+		if (caseDistribution.isEmpty()) {
+			return new RestResponse("Failed", "Cannot find case with id " + updateCaseDistribution.getId());
+		}
+
+		BeanUtils.copyProperties(updateCaseDistribution, caseDistribution.get(), "id");
 
 		return new RestResponse("Success", "Case updated successfully");
 	}
@@ -78,6 +109,12 @@ public class CaseDistroController {
 	@ApiOperation(value = "Delete a CaseDistribution")
 	@DeleteMapping("/case")
 	public RestResponse deleteCase(@RequestParam Integer caseId) {
+		Optional<CaseDistribution> caseDistribution = caseDistributionRepository.findById(caseId);
+		if (caseDistribution.isEmpty()) {
+			return new RestResponse("Failed", "Cannot find case with id " + caseId);
+		}
+
+		caseDistributionRepository.delete(caseDistribution.get());
 
 		return new RestResponse("Success", "Case deleted successfully");
 	}

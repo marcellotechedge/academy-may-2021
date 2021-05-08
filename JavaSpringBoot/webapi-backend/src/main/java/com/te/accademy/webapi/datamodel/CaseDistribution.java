@@ -4,8 +4,19 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class CaseDistribution {
 
+	@Id
+	@Column(unique = true, nullable = false)
+	@GeneratedValue
 	private int id;
 
 	private int casesWeekly;
@@ -24,6 +35,7 @@ public class CaseDistribution {
 
 	private BigInteger popData2019;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date yearWeek;
 
 	public int getId() {
