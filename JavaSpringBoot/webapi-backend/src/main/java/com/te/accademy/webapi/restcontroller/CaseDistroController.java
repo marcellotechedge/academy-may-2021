@@ -45,12 +45,7 @@ public class CaseDistroController {
 	@ApiOperation(value = "List all countries")
 	@GetMapping("/countries")
 	public List<Country> getAll() {
-		Country c = new Country();
-		c.setCode("ITA");
-		c.setContinent("Europe");
-		c.setCountry("Italy");
-
-		return Collections.singletonList(c);
+		return caseDistributionRepository.findDistinctCountries();
 	}
 
 	@ApiOperation(value = "Get CaseDistribution entry")
