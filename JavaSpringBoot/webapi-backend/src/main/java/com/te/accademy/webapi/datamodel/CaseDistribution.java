@@ -5,52 +5,27 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-/**
- * The persistent class for the casedistribution database table.
- * 
- */
-@Entity
-@Table(name = "casedistribution")
 public class CaseDistribution implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column(name = "casesweekly")
 	private int casesWeekly;
 
-	@Column(name = "continentexp", length = 45)
 	private String continentExp;
 
-	@Column(name = "countriesandterritories")
 	private String countriesAndTerritories;
 
-	@Column(name = "countryterritorycode")
 	private String countryTerritoryCode;
 
-	@Column(name = "deathsweekly")
 	private int deathsWeekly;
 
-	@Column(name = "geoid")
 	private String geoId;
 
-	@Column(name = "notificationrate", precision = 10, scale = 3)
 	private BigDecimal notificationRate;
 
-	@Column(name = "popdata2019")
 	private BigInteger popData2019;
 
-	@Column(name = "yearweek")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date yearWeek;
 
 	public int getId() {
@@ -131,10 +106,6 @@ public class CaseDistribution implements Serializable {
 
 	public void setYearWeek(Date yearWeek) {
 		this.yearWeek = yearWeek;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }
