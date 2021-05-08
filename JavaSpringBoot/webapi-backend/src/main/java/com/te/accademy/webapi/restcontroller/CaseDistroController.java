@@ -1,6 +1,5 @@
 package com.te.accademy.webapi.restcontroller;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,7 @@ import com.te.accademy.webapi.datamodel.CaseDetail;
 import com.te.accademy.webapi.datamodel.CaseDistribution;
 import com.te.accademy.webapi.datamodel.CaseSummary;
 import com.te.accademy.webapi.datamodel.Country;
-import com.te.accademy.webapi.datamodel.repo.CaseDistributionRepository;
+import com.te.accademy.webapi.repo.CaseDistributionRepository;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -64,7 +63,7 @@ public class CaseDistroController {
 	public List<CaseDistribution> getAllCases() {
 		return caseDistributionRepository.findAll();
 	}
-	
+
 	@ApiOperation(value = "Search CaseDistribution entries")
 	@GetMapping("/case")
 	public List<CaseDetail> getDetail(//
@@ -72,7 +71,9 @@ public class CaseDistroController {
 			@RequestParam(required = false) Date to, //
 			@RequestParam(required = false) String country) {
 
-		return Collections.<CaseDetail>emptyList();
+		List<CaseDetail> reesult = caseDistributionRepository.findCaseDetails(from, to, country);
+
+		return reesult;
 	}
 
 	@ApiOperation(value = "Insert a new CaseDistribution")
@@ -120,7 +121,6 @@ public class CaseDistroController {
 			@RequestParam(required = false) Date from, //
 			@RequestParam(required = false) Date to, //
 			@RequestParam(required = false) String country) {
-
-		return Collections.<CaseSummary>emptyList();
+		return caseDistributionRepository.findCaseSummaries(from, to, country);
 	}
 }
