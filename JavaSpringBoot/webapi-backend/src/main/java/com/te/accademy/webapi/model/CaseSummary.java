@@ -1,9 +1,6 @@
-package com.te.accademy.webapi.datamodel;
+package com.te.accademy.webapi.model;
 
-import java.io.Serializable;
-
-public class CaseSummary implements Serializable {
-
+public class CaseSummary {
 	private String countryCode;
 
 	private String continent;
@@ -14,13 +11,7 @@ public class CaseSummary implements Serializable {
 
 	private Long totalDeaths;
 
-	public CaseSummary( //
-			String countryCode, //
-			String continent, //
-			String country, //
-			Long totalCase, //
-			Long totalDeaths //
-	) {
+	public CaseSummary(String countryCode, String continent, String country, Long totalCase, Long totalDeaths) {
 		this.countryCode = countryCode;
 		this.continent = continent;
 		this.country = country;

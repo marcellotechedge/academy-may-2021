@@ -1,12 +1,19 @@
-package com.te.accademy.webapi.datamodel;
+package com.te.accademy.webapi.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class CaseDistribution {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	private int id;
+@Entity
+public class CaseDistribution {
+	
+	@Id
+	@GeneratedValue
+	private Integer id;
 
 	private int casesWeekly;
 
@@ -26,11 +33,11 @@ public class CaseDistribution {
 
 	private Date yearWeek;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -105,5 +112,6 @@ public class CaseDistribution {
 	public void setYearWeek(Date yearWeek) {
 		this.yearWeek = yearWeek;
 	}
-
+	
+	
 }

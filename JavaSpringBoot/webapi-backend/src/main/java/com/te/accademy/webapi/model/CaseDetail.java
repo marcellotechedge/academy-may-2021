@@ -1,4 +1,4 @@
-package com.te.accademy.webapi.datamodel;
+package com.te.accademy.webapi.model;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -6,18 +6,17 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CaseDetail {
-
 	private Integer id;
-
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd	HH:mm:ss")
 	private Date dateRep;
-
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateRepString;
-
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM")
 	private Date yearWeek;
-
+	
 	private Integer casesWeekly;
 
 	private Integer deathsWeekly;
@@ -54,7 +53,7 @@ public class CaseDetail {
 		this.yearWeek = yearWeek;
 		this.average = 0.0;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
