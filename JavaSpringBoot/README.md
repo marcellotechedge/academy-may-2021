@@ -20,7 +20,7 @@ Consider marking one of the beans as @Primary, updating the consumer to accept m
 ```
 
 
-Questo errore è dovuto al fatto che swagger genera il progetto  **restapi** gemerando anche le annotation per Spring. 
+Questo errore è dovuto al fatto che swagger genera il progetto  **restapi** generando anche le annotation per Spring. 
 Per esempio nel file
 
 ```
