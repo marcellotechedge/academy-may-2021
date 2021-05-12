@@ -16,9 +16,10 @@
 
 <packaging>pom</packaging>
 <modules>
-	<module>webapi-backend</module>
+	<module>demo</module>
 	<module>restapi</module>
-	<module>receiver-excel</module>
-	<module>uploader-excel</module>
+	<module>receiver</module>
+	<module>loader</module>
+	<module>excelparser</module>
 </modules>
 </project>
